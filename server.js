@@ -17,6 +17,10 @@ app.get('/js/client_world.js', function(req, res){
 io.on('connection', function(socket){
     console.log("A user connected.");
 
+    socket.on('Join room', function (room) {
+        onJoinRoom(room);
+    });
+
     socket.on('disconnect', function () {
         console.log("A user disconnected.");
     });

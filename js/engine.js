@@ -5,8 +5,11 @@ var shipType = {
 
 var asteroidType = {
     SMALL: "Small Asteroid",
+    SMALL_ORE: "Small Asteroid with ore",
     MEDIUM: "Medium Asteroid",
-    LARGE: "Large Asteroid"
+    MEDIUM_ORE: "Medium Asteroid with ore",
+    LARGE: "Large Asteroid",
+    LARGE_ORE: "Large Asteroid with ore"
 };
 
 //CLASSES
@@ -46,6 +49,10 @@ function Asteroid(posX, posY, posZ, rotX, rotY, rotZ, momX, momY, momZ) {
     this.momentum = new Vector(momX, momY, momZ);
 
     this.asteroidType = asteroidType.SMALL;
+}
 
-    //ore implementation
+function Bullet(posX, posY, posZ, rotX, rotY, rotZ, momX, momY, momZ){
+    this.position = new Vector(posX, posY, posZ);
+    this.rotation = new Vector(rotX, rotY, rotZ);
+    this.momentum = new Vector(momX, momY, momZ);
 }

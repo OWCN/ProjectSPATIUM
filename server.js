@@ -14,6 +14,10 @@ app.get('/js/client_world.js', function(req, res){
     res.sendFile(__dirname + '/js/client_world.js');
 });
 
+app.get('/Assets/3D/JSON/AsteroidPH.json', function(req, res){
+    res.sendFile(__dirname + '/Assets/3D/JSON/AsteroidPH.json');
+});
+
 io.on('connection', function(socket){
     console.log("A user connected.");
 

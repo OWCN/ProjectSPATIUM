@@ -31,6 +31,16 @@ var loadWorld = function(){
 
         //
 
+        var dirLight = new THREE.DirectionalLight(0xffffff, 1);
+        dirLight.position.set(100, 100, 50);
+        scene.add(dirLight);
+
+        document.addEventListener('click', onMouseClick, false);
+        document.addEventListener('keyup', onKeyUp, false);
+        document.addEventListener('keydown', onKeyDown, false);
+        document.addEventListener('mousemove', onMouseMove, false);
+        document.addEventListener('resize', onWindowResize, false);
+
         container.appendChild(renderer.domElement);
         document.body.appendChild(container);
     }
@@ -46,6 +56,29 @@ var loadWorld = function(){
         }
         renderer.clear();
         renderer.render(scene, camera);
+    }
+
+    function onMouseClick(){
+
+    }
+
+    function onKeyDown(event) {
+        keyState[event.keyCode || event.which] = true;
+    }
+
+    function onKeyUp(event) {
+        keyState[event.keyCode || event.which] = false;
+    }
+
+    function onMouseMove() {
+
+    }
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
     }
 }
 

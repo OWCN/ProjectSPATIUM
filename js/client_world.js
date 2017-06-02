@@ -31,6 +31,10 @@ var loadWorld = function(){
 
         //
 
+        scene.background = new THREE.Color( 0x111111 );
+
+        var ambientLight = new THREE.AmbientLight( 0x333333 );
+		scene.add( ambientLight );
         var dirLight = new THREE.DirectionalLight(0xffffff, 1);
         dirLight.position.set(100, 100, 50);
         scene.add(dirLight);
@@ -52,8 +56,11 @@ var loadWorld = function(){
 
     function render(){
         if(asteroids.length != 0){
-            camera.lookAt(asteroids[0].position);
+            //camera.lookAt(asteroids[0].position);
+            //asteroids[0].rotation.x += .01
         }
+        updateCameraPos();
+
         renderer.clear();
         renderer.render(scene, camera);
     }
@@ -68,10 +75,16 @@ var loadWorld = function(){
 
     function onKeyUp(event) {
         keyState[event.keyCode || event.which] = false;
+        //asteroids[0].rotation.x += Math.PI / 2;
     }
 
-    function onMouseMove() {
+    function onMouseMove(event) {
+        event.preventDefault();
 
+        camera.rotation.x = ((window.innerHeight / 2) - event.clientY) / (window.innerHeight / 2) * Math.PI / 8;
+        camera.rotation.y = ((window.innerWidth / 2) - event.clientX) / (window.innerWidth / 2) * Math.PI / 8;
+
+        console.log("X: " + event.clientX + "\tY: " + event.clientY);
     }
 
     function onWindowResize() {
@@ -80,10 +93,25 @@ var loadWorld = function(){
 
         renderer.setSize( window.innerWidth, window.innerHeight );
     }
+
+    function updateCameraPos() {
+        if(keyState[65]){               //A key
+            camera.position.x -= .1;
+        }
+        if(keyState[87]){               //W key
+            camera.position.z -= .1;
+        }
+        if(keyState[68]){               //D key
+            camera.position.x += .1;
+        }
+        if(keyState[83]){               //S key
+            camera.position.z += .1;
+        }
+    }
 }
 
-function addAsteroid(geometry, materials){
-    var material = new THREE.MeshFaceMaterial(materials);
+function addAsteroid(geometry){
+    var material = new THREE.MeshStandardMaterial({color: 0x723620});
     asteroids.push(new THREE.Mesh(geometry, material));
     scene.add(asteroids[asteroids.length - 1]);
 }
